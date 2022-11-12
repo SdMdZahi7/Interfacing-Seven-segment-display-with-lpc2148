@@ -1,13 +1,8 @@
 # Interfacing-Seven-segment-display-with-lpc2148
 
-Name:	
-Roll no 
-Date of experiment:
-
-
-
-Ex. No. :
-Date: 
+Name:SYED MUHAMMED ZAHI
+Roll no :212221230114
+Date of experiment:12/11/2022
  
 
 ### Aim: To configure and display 4 character LED seven segment display and write a c code for displaying number 1 to 9 and A to F 
@@ -52,13 +47,49 @@ Sl no 	Hex code 	Output of LCD
         Figure -3 Circuit diagram of interfacing for LPX4 - CA
 
 ## Kiel - Program 
+~~~
+#include <LPC214x.H>
+unsigned char dig[]= {0x88,0xeb,0x4c,0x49,0x2b,0x19,0x18,0xcb,0x8,0x9,0xa,0x38,0x9c,0x68,0x1c,0x1e};
 
+void delay(unsigned int count)
+{
+	int j=0,i=0;
+	for(j=0;j<count;j++)
+	{
+		for(i=0;i<120;i++);
+	}
+}
 
+int main(void)
+{
+	unsigned char count=0;
+	unsigned int i=0;
+	IO0DIR |= (1 << 11);
+	IO0SET |= (1 << 11);
+	IO0DIR |= 0x007F8000;
+	while(1)
+	{
+		count++;
+		if(count == 16)count=0;
+		for(i=0;i<800;i++)
+		{
+			IO0CLR = 0x007f8000;
+			IO0SET = (dig[count] << 15);
+			delay(200);
+		}
+  }
+}
+~~~
 
- 
-
+##  Output screen shots :
+## BEFORE STIMULATION:
+![image](https://user-images.githubusercontent.com/94187572/201487796-068f8703-da6c-41b3-af59-4b985390d224.png)
+## AFTER STIMULATING A DIGIT:
+![image](https://user-images.githubusercontent.com/94187572/201487848-f70e5302-7ca5-4197-a13c-db7895abd8a9.png)
+## AFTER STIMULATING AN ALPHABET:
+![image](https://user-images.githubusercontent.com/94187572/201487869-c2f130cc-0247-470f-9e94-345df95068e9.png)
+## CIRCUIT DIAGRAM:
+![image](https://user-images.githubusercontent.com/94187572/201487905-de7c5e41-2387-4cf6-bc84-8a28a7fa3d38.png)
 
 ### Result :
 LED seven segment display is interfaced and displayed alpha numeric characters 
-
-##  Output screen shots :
